@@ -4,17 +4,24 @@
   
   var registered = $acc[$ac].registered;
   
-  function deselect(index) {
-    let tempi
-    for(i=0;i<$subject.length;i++){
-      if($subject[i].ID == selected[index].ID && $subject[i].section == selected[index].section){
+  function deregis(index) {
+    let tempi,i;
+  
+    if (confirm('Are you sure to delete ' + $acc[$ac].registered[index].ID + ' ' + $acc[$ac].registered[index].name + ' ?') == true) {
+      for(i=0;i<$subject.length;i++){
+      if($subject[i].ID == registered[index].ID && $subject[i].section == registered[index].section){
         tempi = i
       }
     }
-    $subject[tempi].atten -= 1
+    
+    $subject[tempi].atten -= 1        
     $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf($ac), 1);
-    selected.splice(index, 1);
-    selected = selected
+    $acc[$ac].registered.splice(index, 1);
+    $acc[$ac].registered = $acc[$ac].registered
+    } 
+    else {
+      
+    }   
   }
 
 </script>
@@ -40,7 +47,7 @@
     <div class='tabledata1'>
         <table>  
         {#each $acc[$ac].registered as {ID, name, atten, quota, section, day, st, en} , index}
-          <tr on:click={()=>deselect(index)} class='tr-hover'>
+          <tr on:click={()=>deregis(index)} class='tr-hover'>
             <span>
               <td class = 't-but'><img src='/src/assets/bookdel.png'></td>
               <td class = 't-id'>{ID}</td> 

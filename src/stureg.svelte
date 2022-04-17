@@ -71,7 +71,7 @@
         tempi = i
       }
     }
-    $subject[tempi].atten -= 1
+    $subject[tempi].atten -= 1        
     $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf($ac), 1);
     selected.splice(index, 1);
     selected = selected
