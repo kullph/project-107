@@ -1,9 +1,14 @@
 <script>
-  import { ac , islogin , page } from "./Logindata.js"
-  import { subject , selected } from "./Subjectdata.js"
+  import { acc , ac , islogin , page } from "./Logindata.js"
+  import { subject  } from "./Subjectdata.js"
+
+  var selected = $acc[$ac].selected;
+  var registered = $acc[$ac].registered;
+  
   let searchdata = ''
   var searched = []
-  var i;
+  var i,j
+  
   function search() {
     searched=[]
     for(i=0;i<$subject.length;i++){
@@ -23,33 +28,38 @@
   }
 
   function select(index) {
-    let doub = 0
-    for(i=0;i<$selected.length;i++){
-      if($subject[index].ID == $selected[i].ID && $subject[index].section == $selected[i].section){
+    let doub = 0 
+    let doubr = 0
+    for(i=0;i<selected.length;i++){
+      if($subject[index].ID == selected[i].ID && $subject[index].section == selected[i].section){
         doub += 1;
       }
     }
 
-    if(doub == 0){
+    for(i=0;i<$acc[$ac].registered.length;i++){
+      if($subject[index].ID == $acc[$ac].registered[i].ID && $subject[index].section == $acc[$ac].registered[i].section){
+        doubr += 1;
+      }
+    }
+
+    if(doub == 0 && doubr == 0){
       if($subject[index].quota - $subject[index].atten <= 0){
         alert('Quota is full.');
       }
       else{
         $subject[index].atten += 1
-        $selected.push({check:$subject[index].check,
-                       ID:$subject[index].ID,
-                       name:$subject[index].name,
-                       atten:$subject[index].atten,
-                       quota:$subject[index].quota,
-                       section:$subject[index].section,
-                       day:$subject[index].day,
-                       st:{h:$subject[index].st.h,m:$subject[index].st.m},
-                       en:{h:$subject[index].en.h,m:$subject[index].en.m}});
-        $selected = $selected
+        $subject[index].attendees.push($ac)
+        selected.push($subject[index]);
+        selected = selected
       }
     }
     else{
-      alert('You have selected this subject. \nYou are unable to selected same subject twice.');
+      if(doub != 0){
+        alert('You have selected this subject. \nYou are unable to select same subject twice.');
+      }
+      else if(doubr != 0){
+        alert('You have registered this subject. \nYou are unable to select the registered subject.');
+      }
     }
     
   }
@@ -57,23 +67,41 @@
   function deselect(index) {
     let tempi
     for(i=0;i<$subject.length;i++){
-      if($subject[i].ID == $selected[index].ID && $subject[i].section == $selected[index].section){
+      if($subject[i].ID == selected[index].ID && $subject[i].section == selected[index].section){
         tempi = i
       }
     }
     $subject[tempi].atten -= 1
-    $selected.splice(index, 1);
-    $selected = $selected
+    $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf($ac), 1);
+    selected.splice(index, 1);
+    selected = selected
   }
 
   function selectedclear() {
-    $selected = []
-    $selected = $selected
+    for(i=0;i<selected.length;i++){
+      for(j=0;j<$subject.length;j++){
+        if(selected[i].ID == $subject[j].ID && selected[i].section == $subject[j].section){
+          $subject[j].atten -= 1
+        }
+      }
+    }
+    selected = []
+    selected = selected
+    $acc[$ac].selected = []
+    $acc[$ac].selected = $acc[$ac].selected
   }
 
-  function comfirm() {
-    
+  function confirm() {
+    for(i=0;i<selected.length;i++){
+      $acc[$ac].registered.push(selected[i])
+    }
+    $acc[$ac].registered = $acc[$ac].registered
+    selected = []
+    selected = selected
+    $acc[$ac].selected = []
+    $acc[$ac].selected = $acc[$ac].selected
   }
+    
 </script>
 
 <div class='main'>
@@ -101,7 +129,7 @@
         {#each $subject as {ID, name, atten, quota, section, day, st, en} , index}
           <tr on:click={()=>select(index)} class='tr-hover'>
             <span>
-              <td class = 't-but'><button on:click={()=>select(index)}>A</button></td>
+              <td class = 't-but'><img src='/src/assets/bookadd.png'></td>
               <td class = 't-id'>{ID}</td> 
               <td class = 't-name' >{name}</td>
               <td class = 't-attens' >{atten}</td>
@@ -127,7 +155,7 @@
       {#each selected as {ID, name, atten, quota, section, day, st, en}, index}
         <tr on:click={()=>deselect(index)} class='tr-hover'>
           <span>
-              <td class = 't-but'><button on:click={()=>deselect(index)}>D</button></td>
+              <td class = 't-but'><img src='/src/assets/bookdel.png'></td>
               <td class = 't-id'>{ID}</td> 
               <td class = 't-name' >{name}</td>
               <td class = 't-attens' >{atten}</td>
@@ -157,6 +185,12 @@
 </div>
 
 <style>
+  img{
+    width:32px;
+  }
+  button{
+    cursor: pointer;
+  }
   .srchbut{
     position: relative;
     font-family: "Lucida Console", "Courier New", monospace;
@@ -187,11 +221,12 @@
     margin-left: 1%;
   }
   table , td , tr , th{
-    
+
   }
   .t-but{
     width:1%;
     text-align: center;
+    cursor: pointer;
   }
   .t-id{
     width:4%;
@@ -209,9 +244,11 @@
   }
   .t-sec{
     width:7%;
+    text-align: center;
   }
   .t-time{
     width:12%;
+    text-align: center;
   }
   table{
     width:100%;
@@ -219,14 +256,15 @@
   .tr-hover{
     transition-duration: 0.1s;
     width:100%;
+    cursor: pointer;
   }
   .tr-hover:hover{
     background:#6a78a8;
     color: white;
   }
   td{
-    padding: 3px;
-    top-margin: 0.5%;
+    padding: 1px;
+    margin-bottom: 1%;
   }
   th{
     text-align: center;

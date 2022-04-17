@@ -2,8 +2,6 @@
   import { acc, ac , islogin , page} from "./Logindata.js"
   import user from "./assets/user.png"
   const details = $acc[$ac];
-
-  
   
 </script>
 
@@ -26,7 +24,7 @@
       <p><b>Birthday: </b><span>{details.Bday}</span></p>
       <p><b>Phone number: </b><span>{details.phone}</span></p>
   
-      <button class="btn" onclick={edit}>Edit</button>
+      <button class="btn">Edit</button>
     </div>
 </div>
 

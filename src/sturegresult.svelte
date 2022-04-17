@@ -1,18 +1,71 @@
 <script>
-  import { ac , islogin , page} from "./Logindata.js"
+  import { acc , ac , islogin , page} from "./Logindata.js"
+  import { subject  } from "./Subjectdata.js"
   
+  var registered = $acc[$ac].registered;
+  
+  function deselect(index) {
+    let tempi
+    for(i=0;i<$subject.length;i++){
+      if($subject[i].ID == selected[index].ID && $subject[i].section == selected[index].section){
+        tempi = i
+      }
+    }
+    $subject[tempi].atten -= 1
+    $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf($ac), 1);
+    selected.splice(index, 1);
+    selected = selected
+  }
+
 </script>
 
 <div class='main'>
-    <label class='head'>Registration Result</label>
+  <label class='head'>Registration Result</label>
+  <div class = 'table'>
+    <div class='tablehead'>
+        <table>  
+        <tr>
+          <span>
+            <th style="width:2%;"></th> 
+            <th style="width:5%;">ID ▼</th> 
+            <th style="width:20%;">Subjects ▼</th> 
+            <th style="width:12%;">Quota ▼</th> 
+            <th style="width:7%;">Sections ▼</th> 
+            <th style="width:12%;">Time</th> 
+          </span>
+        </tr>
+        </table>
+      </div>
+
+    <div class='tabledata1'>
+        <table>  
+        {#each $acc[$ac].registered as {ID, name, atten, quota, section, day, st, en} , index}
+          <tr on:click={()=>deselect(index)} class='tr-hover'>
+            <span>
+              <td class = 't-but'><img src='/src/assets/bookdel.png'></td>
+              <td class = 't-id'>{ID}</td> 
+              <td class = 't-name' >{name}</td>
+              <td class = 't-attens' >{atten}</td>
+              <td class = 't-quota' >/ {quota}</td>
+              <td class = 't-sec'>{section}</td>
+              <td class = 't-time'>{day}{st.h}:{st.m}-{en.h}:{en.m}</td>
+            </span>
+          </tr>
+        {/each}
+        </table>
+      </div>
+    
+  </div>
+     
 </div>
+
+
 
 <div class='main2'>
   <div class='side'>
     <button class="sidebut" on:click={()=>$page = 'stu'}>Registration</button>
     <button class="sidebut" on:click={()=>$page = 'sturegresult'}>Registration result</button>
   </div>
-  
   <div class="bar">
     <button class="topnav" on:click={()=>$page = 'stuprofile'}><u>{$ac}</u></button>
     <button class="topnav" on:click={()=>$islogin = false}><u>Logout</u></button>
@@ -20,6 +73,93 @@
 </div>
 
 <style>
+  table , td , tr , th{
+
+  }
+  .t-but{
+    width:1%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .t-id{
+    width:4%;
+    text-align: center;
+  }
+  .t-name{
+    width:20%;
+  }
+  .t-attens{
+    width:6%;
+    text-align: right;
+  }
+  .t-quota{
+    width:6%;
+  }
+  .t-sec{
+    width:7%;
+    text-align: center;
+  }
+  .t-time{
+    width:12%;
+    text-align: center;
+  }
+  img{
+    width:32px;
+  }
+  button{
+    cursor: pointer;
+  }
+  table{
+    width:100%;
+  }
+  .tr-hover{
+    transition-duration: 0.1s;
+    width:100%;
+    cursor: pointer;
+  }
+  .tr-hover:hover{
+    background:#6a78a8;
+    color: white;
+  }
+  td{
+    padding: 1px;
+    margin-bottom: 1%;
+  }
+  th{
+    text-align: center;
+  }
+  span{
+    font-size: 24px;
+    color: #2C4188;
+  }
+  .tabledata1{
+    background: #B5BEDC;
+    bottom: 0%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    overflow: auto;
+  }
+  .tablehead{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background: #6676AF;
+    bottom: 45%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 5.25%;
+  }
+  .table{
+    background: #F0F3F6;
+    position: absolute;
+    width: 92.5%;
+    height: 80%;
+    margin-top: 2%;
+    border: none;
+    border-color: rgba(60, 77, 139,0.15);
+  }
   .main2{
     content: "";
     display: table;
