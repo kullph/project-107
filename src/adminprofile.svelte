@@ -1,8 +1,13 @@
-<script>
+l<script>
   import { acc, ac , islogin , page} from "./Logindata.js"
   import user from "./assets/user.png"
 
   const details = $acc[$ac];
+  function edit() {
+    for(i=0;i<detail.length;i++){
+      
+    }
+  }
 </script>
 
 <div class='main'>
@@ -20,7 +25,7 @@
       <p><b>Birthday: </b><span>{details.Bday}</span></p>
       <p><b>Phone number: </b><span>{details.phone}</span></p>
   
-      <button class="btn">Edit</button>
+      <button class="btn" on:click={edit}>Edit</button>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 <script>
   import { acc , ac , islogin , page } from "./Logindata.js"
-  import { subject  } from "./Subjectdata.js"
+  import { subject } from "./Subjectdata.js"
 
   var selected = $acc[$ac].selected;
   var registered = $acc[$ac].registered;
@@ -24,6 +24,7 @@
                        en:{h:$subject[i].en.h,m:$subject[i].en.m}});
       }
     }
+    
     searchdata = ''
   }
 
@@ -252,6 +253,10 @@
   }
   table{
     width:100%;
+    border-collapse: collapse;
+  }
+  tr{
+    
   }
   .tr-hover{
     transition-duration: 0.1s;
@@ -263,11 +268,12 @@
     color: white;
   }
   td{
-    padding: 1px;
+    padding: 0.25%;
     margin-bottom: 1%;
   }
   th{
     text-align: center;
+    padding: 0.5%;
   }
   span{
     font-size: 24px;
