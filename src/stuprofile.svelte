@@ -24,7 +24,7 @@
       <p><b>Birthday: </b><span>{details.Bday}</span></p>
       <p><b>Phone number: </b><span>{details.phone}</span></p>
   
-      <button class="btn">Edit</button>
+      <button class="btn" on:click={() => $page = "studentEdit"}>Edit</button>
     </div>
 </div>
 

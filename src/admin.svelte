@@ -1,12 +1,57 @@
 <script>
   import { acc , ac , islogin , page } from "./Logindata.js"
   import { subject } from "./Subjectdata.js"
+  
+  const details = $acc[$ac];
+
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
+}
+  
+  let ID =''
+  let name = ''
+  let atten =''
+  let quota =''
+  let section = ''
+  let time = ''
 
   let searchdata = ''
+  
+  function submit() {
+    alert('submit เเล้วจ้า');
+    
+  }
+  
+  function add() {
+    var x = document.getElementById('Input');
+    if (x.style.display === "none") {
+    x.style.display = "none";} 
+    else {
+    x.style.display = "block";
+  
+  }
+  }
+  
+  function detail(index) {
+    var x = document.getElementById('Hide');
+    if (x.style.display === "block") {
+    x.style.display = "none";} 
+    else {
+    x.style.display = "block"
 
-
-  function detail() {
-    alert('Detail!!!!!!!!!!');
+  }
   }
 
   function edit() {
@@ -14,26 +59,30 @@
   }
   
   function search() {
-    searched=[]
-    for(i=0;i<$subject.length;i++){
-      if($subject[i].ID == searchdata){
-        searched.push({check:$subject[i].check,
-                       ID:$subject[i].ID,
-                       name:$subject[i].name,
-                       atten:$subject[i].atten,
-                       quota:$subject[i].quota,
-                       section:$subject[i].section,
-                       day:$subject[i].day,
-                       st:{h:$subject[i].st.h,m:$subject[i].st.m},
-                       en:{h:$subject[i].en.h,m:$subject[i].en.m}});
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } 
+        else {
+          tr[i].style.display = "none";
+        }
       }
     }
-    searchdata = ''
   }
 
-  const add = () => {
-    console.log("add")
-  };
+  const selectedclear = () => {
+    //
+  }
+
   
 </script>
 
@@ -56,7 +105,7 @@
       </div>
     
     <div class='tabledata1'>
-        <table>  
+        <table id='myTable'>
         {#each $subject as {ID, name, atten, quota, section, day, st, en} , index}
           <tr>
             <span class='tr-container'>
@@ -70,19 +119,61 @@
               <td class = 't-btn'><button class='btn'on:click={edit}>Edit</button></td>
             </span>
           </tr>
-        {/each}
+        {/each} 
+          <div class='Hide' id='Hide'>
+            <span id='more'>
+            {#each $subject as attendees,index}
+            <tr>
+            <span class='block-name'>
+              <td class = 't-id'>{ID}</td> 
+              <td class = 't-name'>{attendees}</td>
+            </span>
+          </tr>
+            {/each}  
+            </span>
+          </div>
+          
         </table>
+      
       </div>
     
     <div class='searchbar'>
-      <input class='srchinput' bind:value={searchdata} placeholder="(ID)">
-      <button class='search-btn' on:click={search}>search</button>
-      <button class='search-btn' on:click={confirm}>confirm</button>
-<!--       <button class = 'search-btn' on:click={selectedclear}>clear</button> -->
+      <input type = "text" class="srchinput" id = 'myInput' on:keyup={search} placeholder="(ID)">
+      <label class='srch'>(Search ID Course)</label>
+      <button class = 'search-btn' on:click={confirm}>confirm</button>
     </div>
     
     <div class='add-section'>
         <button class='add-btn' on:click={add}>Add</button>
+      
+      <div id='Input'>
+        <tr>
+            <span class='tr-add'>
+              <td class = 't-input'>
+                <input bind:value={ID} placeholder="(ID)">
+              </td> 
+              <td class = 't-input'>
+                <input bind:value={name} placeholder="(name)">
+              
+              </td>
+              <td class = 't-input'>
+                <input bind:value={atten} placeholder="(atten)">
+              </td>
+              <td class = 't-input'>
+                <input bind:value={quota} placeholder="(quota)"></td>
+              <td class = 't-input'>
+                <input bind:value={section} placeholder="(section)">
+              </td>
+              <td class = 't-input'>
+                <input bind:value={time} placeholder="(Time)">
+              </td>
+              <td class = 't-btn'>
+                <button class='btn'on:click={submit}>Submit</button>
+              </td>
+            </span>
+          </tr>
+      </div>
+      
     </div>
   </div>
 </div>
@@ -96,8 +187,10 @@
     <button class="topnav" on:click={()=>$page = 'adminprofile'}><u>{$ac}</u></button>
     <button class="topnav" on:click={()=>$islogin = false}><u>Logout</u></button>
   </div>
+  
 </div>
 
+  
 <style>
   img{
     width:32px;
@@ -144,7 +237,7 @@
     border-radius: 12px;
     padding: 0.75%;
     margin-top: 0.75%;
-    margin-left: 1%;
+    margin-left: 3%;
   }
   table , td , tr , th{
 
@@ -232,13 +325,15 @@
     height: 5.25%;
   }
   .table{
-    background: #F0F3F6;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background: #B5BEDC;
     position: absolute;
     width: 92.5%;
     height: 80%;
     margin-top: 2%;
     border: none;
-    border-color: rgba(60, 77, 139,0.15);
+    border-color: rgba(60, 77, 139,0);
   }
   .main2{
     content: "";
@@ -401,5 +496,20 @@
     position: absolute;
     width: 100%;
     height: 6.5%;
+  }
+  
+  .tr-input{
+    font-family: "Lucida Console", "Courier New", monospace;
+    width: 15%;
+    height: 10%;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75%;
+    margin-top: 0.75%;
+    margin-left: 10%;
+  }
+  .srch{
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: white;
   }
 </style>

@@ -3,13 +3,11 @@
   import user from "./assets/user.png"
   const details = $acc[$ac];
 
-  
   function edit() {
     var StudentID = $('stdID');
     $('span').html("<input bind:value={ID} placeholder="Student ID""+ StudentID +">");
   }
-  
-  
+
 </script>
 
 <div class='main'>

@@ -134,6 +134,7 @@
   }
   th{
     text-align: center;
+    padding: 0.25%;
   }
   span{
     font-size: 24px;
@@ -243,5 +244,19 @@
   }
   .sidebut:hover{
     background-color: #0A1230;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    background: #49578a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.70);
+    width: 5px;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.90);
+    width: 5px;
+    border-radius: 20px;
   }
 </style>

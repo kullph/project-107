@@ -1,41 +1,43 @@
 <script>
-  import { acc, ac , islogin , page } from "./Logindata.js"
+  import { acc, ac , islogin , page} from "./Logindata.js"
   import user from "./assets/user.png"
-
   const details = $acc[$ac];
-  function edit() {
-    for(i=0;i<detail.length;i++){
-      
-    }
-  }
+  
 </script>
 
-<div class='main'>
+<!-- <div class='main'>
     <div class="img">
       <img src={user} />
     </div>
     <div class="txt">
       <label class='head'>Profile</label>
-      <p><b>ID: </b><span>{details.id}</span></p>
+      <p><b>Student ID: </b><span class='stdID'>{details.id}</span></p>
       <p><b>Name: </b><span>{details.fname} {details.lname}</span></p>
-      
+      <p><b>Student year: </b><span>{details.year}</span></p>
+      <p><b>Program: </b><span>{details.program}</span></p>
+      <p><b>Faculty: </b><span>{details.fac}</span></p>
+      <p><b>GPAX: </b><span>{details.GPAX}</span></p>
+  
       <p class="personal-title">Personal</p>
       <p><b>Username: </b><span>{$ac}</span></p>
       <p><b>Password: </b><span>{details.password}</span></p>
       <p><b>Birthday: </b><span>{details.Bday}</span></p>
       <p><b>Phone number: </b><span>{details.phone}</span></p>
   
-      <button class="btn" on:click={edit}>Edit</button>
+      <button class="btn" on:click={() => $page = "studentEdit"}>Edit</button>
     </div>
-</div>
+</div> -->
+
+
 
 <div class='main2'>
   <div class='side'>
-    <button class="sidebut" on:click={()=>$page = 'admin'}>Admin User</button>
+    <button class="sidebut" on:click={()=>$page = 'stu'}>Registration</button>
+    <button class="sidebut" on:click={()=>$page = 'sturegresult'}>Registration result</button>
   </div>
   
   <div class="bar">
-    <button class="topnav" on:click={()=>$page = 'adminprofile'}><u>{$ac}</u></button>
+    <button class="topnav" on:click={()=>$page = 'stuprofile'}><u>{$ac}</u></button>
     <button class="topnav" on:click={()=>$islogin = false}><u>Logout</u></button>
   </div>
 </div>
@@ -51,7 +53,7 @@
     background: white;
     width: 78%;
     height: 83%;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: "Lucida Console", "Courier New", 'monospace';
     color:black;
     padding: 3%;
     left:16%;
@@ -120,6 +122,16 @@
   .sidebut:hover{
     background-color: #0A1230;
   }
+
+/*  Main  */
+/*   .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f3f6;
+  } */
+  
   .img > img {
     width: 200px;
     margin: 0 50px 0px 0;

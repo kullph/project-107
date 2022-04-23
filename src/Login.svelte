@@ -6,6 +6,8 @@
   function checkLogin() {
     if (!(username in $acc) || $acc[username].password != password) {
       alert('Incorrect username or password');
+      username = ''
+      password = ''
     }
     else {
       if($acc[username].type == 'admin'){
@@ -17,25 +19,37 @@
         $islogin = true;
         $page = 'stu'
         $ac = username
-
       }
     }
   }
   
 </script>
 
+<img src='/src/assets/Login.png'>
 <div class="bar">
+  
 </div>
-
+    
 <div class="Login">
   <h1>Login</h1>
   <input bind:value={username} placeholder="Username">
   <input type="password" bind:value={password} placeholder="Password">
-  <button class="submit" on:click={checkLogin}>Submit</button><br><br>
+  <button class="submit" on:click={checkLogin} accesskey="[Enter]">Submit</button><br><br>
   <button class="reg" on:click={()=>$page = 'reg'}><u>Create an account</u></button>
 </div>
+  
 
 <style>
+  img{
+    position:absolute;
+    width:100%;
+    height:99.8%;
+    left:0;
+    top:0;
+    padding:0;
+    margin:0;
+    opacity:0.85;
+  }
   .reg{
     border: none;
     color: white;
@@ -54,6 +68,7 @@
     margin-top: 5%;
   }
   .Login{
+    float: left;
     position: relative;
     padding: 1%;
     width: 25%;
@@ -63,6 +78,8 @@
     background: #B5BEDC;
     border-radius: 36px;
     text-align: center;
+    backdrop-filter: blur(16px);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   }
   .bar{
     position: absolute;

@@ -1,31 +1,63 @@
 <script>
   import {acc , islogin , page} from "./Logindata.js"
-  let username=''
-    ,password=''
-    ,passwordconfirm=''
-    ,ID=''
-    ,fname=''
-    ,lname=''
-    ,year=''
-    ,prog=''
-    ,fac=''
-    ,GPAX=''
-    ,Bday=''
-    ,phone=''
+  let usernamer=''
+    ,passwordr=''
+    ,passwordconfirmr=''
+    ,IDr=''
+    ,fnamer=''
+    ,lnamer=''
+    ,yearr=''
+    ,progr=''
+    ,facr=''
+    ,GPAXr=''
+    ,Bdayr=''
+    ,phoner=''
 
   function reg() {
-    alert($page);
 
-    if(password == passwordconfirm){
-      
+    if(usernamer == '' || passwordr == '' || passwordconfirmr == ''){
+      alert('require input cannot be empty.')
     }
+      
     else{
+
+      if(usernamer in $acc){
+        alert('This username has been used')
+        usernamer=''
+      }
+      else{
+        if(passwordr == passwordconfirmr){
+          
+          $acc[usernamer] = {password:passwordr ,type:'stu', id:IDr, fname:fnamer, lname:lnamer, year:yearr, program:progr , fac:facr, GPAX:GPAXr, Bday:Bdayr, phone:phoner, selected:[], registered:[]}
+
+          usernamer=''
+          ,passwordr=''
+          ,passwordconfirmr=''
+          ,IDr=''
+          ,fnamer=''
+          ,lnamer=''
+          ,yearr=''
+          ,progr=''
+          ,facr=''
+          ,GPAXr=''
+          ,Bdayr=''
+          ,phoner=''
+  
+          alert('Account created')
+      }
+        
+        else{
+          alert('review your password.')
+        }
+      }
+      
       
     }
-    
   }
 
 </script>
+
+<img src='/src/assets/Login.png'>
 
 <div class="bar">
 </div>
@@ -41,14 +73,14 @@
     
     <tr>
       <td><label>Username</label></td>
-      <td><input bind:value={username} placeholder="(require)"></td>
+      <td><input bind:value={usernamer} placeholder="(require)"></td>
     </tr>
 
-    <tr>
+    <tr >
       <td><label>Password</label></td>
-      <td><input class = "password" type = "password" bind:value={password} placeholder="(require)"></td>
+      <td><input class = "password" type = "password" bind:value={passwordr} placeholder="(require)"></td>
       <td><label>Confirm Password</label></td>
-      <td><input class = "passwordconfirm" type = "password" bind:value={passwordconfirm} placeholder="(require)"></td>
+      <td><input class = "passwordconfirm" type = "password" bind:value={passwordconfirmr} placeholder="(require)"></td>
     </tr>
 
     <tr>
@@ -61,37 +93,35 @@
     
     <tr>
       <td><label>Student ID</label></td>
-      <td><input bind:value={ID} placeholder="Student ID"></td>    
+      <td><input bind:value={IDr} placeholder="Student ID"></td>    
     </tr>
 
     <tr>
       <td><label>Firstname</label></td>
-      <td><input bind:value={fname} placeholder="firstname"></td>
+      <td><input bind:value={fnamer} placeholder="firstname"></td>
       <td><label>Lastname</label></td>
-      <td><input bind:value={lname} placeholder="lastname"></td>
+      <td><input bind:value={lnamer} placeholder="lastname"></td>
     </tr>
-
-    
     
     <tr>
       <td><label>Year</label></td>
-      <td><input bind:value={year} placeholder="year"></td>
+      <td><input bind:value={yearr} placeholder="year"></td>
       <td><label>Program</label></td>
-      <td><input bind:value={prog} placeholder="program"></td>
+      <td><input bind:value={progr} placeholder="program"></td>
     </tr>
 
     <tr>
       <td><label>Faculty</label></td>
-      <td><input bind:value={fac} placeholder="faculty"></td>
+      <td><input bind:value={facr} placeholder="faculty"></td>
       <td><label>GPAX</label></td>
-      <td><input bind:value={GPAX} placeholder="GPAX"></td>
+      <td><input bind:value={GPAXr} placeholder="GPAX"></td>
     </tr>
     
     <tr>
       <td><label>Birthday</label></td>
-      <td><input bind:value={Bday}></td>
+      <td><input bind:value={Bdayr} placeholder="dd/mm/yyyy"></td>
       <td><label>Phone number</label></td>
-      <td><input bind:value={phone} placeholder="phonenumber"></td>
+      <td><input bind:value={phoner} placeholder="0x-xxxx-xxxx"></td>
     </tr>
 
     <tr>
@@ -110,6 +140,16 @@
 </div>
 
 <style>
+  img{
+    position:absolute;
+    width:100%;
+    height:99.8%;
+    top:0;
+    left:0;
+    padding:0;
+    margin:0;
+    opacity:0.85;
+  }
   tr{
     width: 100%;
   }
@@ -123,7 +163,7 @@
     font-size: 24px;
   }
   table ,tr ,td ,th{
-    
+
   }
   table{
     border-collapse:separate; 
@@ -157,14 +197,15 @@
   }
   .Login{
     position: relative;
-    padding: 1%;
+    padding: 3%;
     width: 50%;
     height: 15%;
-    margin-left: 25%;
-    margin-top: 7.5%;
+    margin-left: 22.5%;
+    margin-top: 6.5%;
     background: #B5BEDC;
     border-radius: 36px;
     text-align: center;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   }
   .bar{
     position: absolute;

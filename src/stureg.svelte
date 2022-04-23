@@ -4,28 +4,29 @@
 
   var selected = $acc[$ac].selected;
   var registered = $acc[$ac].registered;
+  var searchdata = '';
   
-  let searchdata = ''
-  var searched = []
   var i,j
   
   function search() {
-    searched=[]
-    for(i=0;i<$subject.length;i++){
-      if($subject[i].ID == searchdata){
-        searched.push({check:$subject[i].check,
-                       ID:$subject[i].ID,
-                       name:$subject[i].name,
-                       atten:$subject[i].atten,
-                       quota:$subject[i].quota,
-                       section:$subject[i].section,
-                       day:$subject[i].day,
-                       st:{h:$subject[i].st.h,m:$subject[i].st.m},
-                       en:{h:$subject[i].en.h,m:$subject[i].en.m}});
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } 
+        else {
+          tr[i].style.display = "none";
+        }
       }
     }
-    
-    searchdata = ''
   }
 
   function select(index) {
@@ -126,7 +127,7 @@
       </div>
     
       <div class='tabledata1'>
-        <table>  
+        <table id='myTable'>  
         {#each $subject as {ID, name, atten, quota, section, day, st, en} , index}
           <tr on:click={()=>select(index)} class='tr-hover'>
             <span>
@@ -145,8 +146,8 @@
     
     
     <div class='searchbar'>
-      <input class = 'srchinput' bind:value={searchdata} placeholder="(ID)">
-      <button class = 'srchbut' on:click={search}>search</button>
+      <input type = "text" class = 'srchinput' id = 'myInput' on:keyup={search} placeholder="(ID)">
+      <label class='srch'>(Search ID Course)</label>
       <button class = 'srchbut' on:click={confirm}>confirm</button>
       <button class = 'srchbut' on:click={selectedclear}>clear</button>
     </div>
@@ -200,7 +201,7 @@
     color: white;
     text-align: center;
     width: 6.5%;
-    margin-top: 0.35%;
+    margin-top: 0.25%;
     margin-left: 0.5%;
     border-radius: 12px;
     cursor: pointer;
@@ -219,7 +220,7 @@
     border-radius: 12px;
     padding: 0.75%;
     margin-top: 0.75%;
-    margin-left: 1%;
+    margin-left: 3%;
   }
   table , td , tr , th{
 
@@ -319,13 +320,12 @@
     height: 5.25%;
   }
   .table{
-    background: #F0F3F6;
     position: absolute;
     width: 92.5%;
     height: 80%;
     margin-top: 2%;
     border: none;
-    border-color: rgba(60, 77, 139,0.15);
+    border-color: rgba(60, 77, 139,0);
   }
   .main2{
     content: "";
@@ -403,5 +403,23 @@
   }
   .sidebut:hover{
     background-color: #0A1230;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    background: #49578a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.70);
+    width: 5px;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.90);
+    width: 5px;
+    border-radius: 20px;
+  }
+  .srch{
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: white;
   }
 </style>

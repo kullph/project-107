@@ -8,6 +8,8 @@ let subj = [{ check: 0, ID: 'SF001', name: 'Software Processing', atten: 200, qu
 { check: 0, ID: 'SF006', name: 'Software Designing', atten: 9, quota: 12, section: '760001', day: 'WE', st: { h: 9, m: 30 }, en: { h: 12, m: 30 }, attendees: [] },
 { check: 0, ID: 'SF007', name: 'Software Predicting', atten: 400, quota: 400, section: '760001', day: 'WE', st: { h: 9, m: 30 }, en: { h: 12, m: 30 }, attendees: [] },
 { check: 0, ID: 'SF008', name: 'Software Hacking', atten: 534, quota: 600, section: '760001', day: 'WE', st: { h: 9, m: 30 }, en: { h: 12, m: 30 }, attendees: [] },
+{ check: 0, ID: 'CN101', name: 'Software Hacking', atten: 534, quota: 600, section: '760001', day: 'WE', st: { h: 9, m: 30 }, en: { h: 12, m: 30 }, attendees: [] },
+{ check: 0, ID: 'TU100', name: 'Software Hacking', atten: 534, quota: 600, section: '760001', day: 'WE', st: { h: 9, m: 30 }, en: { h: 12, m: 30 }, attendees: [] },
 ]
 
 export const subject = writable(subj);
