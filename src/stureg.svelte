@@ -1,7 +1,9 @@
 <script>
   import { acc , ac , islogin , page } from "./Logindata.js"
   import { subject } from "./Subjectdata.js"
-
+  
+  
+  
   var selected = $acc[$ac].selected;
   var registered = $acc[$ac].registered;
   var searchdata = '';
@@ -50,7 +52,7 @@
       }
       else{
         $subject[index].atten += 1
-        $subject[index].attendees.push($ac)
+        $subject[index].attendees.push([$acc[$ac].id,$acc[$ac].fname,$acc[$ac].lname])
         selected.push($subject[index]);
         selected = selected
       }
@@ -74,7 +76,7 @@
       }
     }
     $subject[tempi].atten -= 1        
-    $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf($ac), 1);
+    $subject[tempi].attendees.splice($subject[tempi].attendees.indexOf([$acc[$ac].id,$acc[$ac].fname,$acc[$ac].lname]), 1);
     selected.splice(index, 1);
     selected = selected
   }

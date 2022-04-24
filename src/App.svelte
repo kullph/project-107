@@ -7,6 +7,7 @@
   import Stuprofile from './stuprofile.svelte'
   import Reg from './reg.svelte'
   import Adminprofile from './adminprofile.svelte'
+  import Detail from './adminSubjDetail.svelte'
 </script>
 
 {#if !$islogin}
@@ -28,6 +29,8 @@
       <Stuprofile />  
     {:else if $page == 'adminprofile'}
       <Adminprofile />  
+    {:else if $page == 'detail'}
+      <Detail />
     {/if}
 {/if}
 

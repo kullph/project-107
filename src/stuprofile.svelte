@@ -1,17 +1,87 @@
 <script>
-  import { acc, ac , islogin , page} from "./Logindata.js"
+  import { acc , ac , islogin , page} from "./Logindata.js"
   import user from "./assets/user.png"
   const details = $acc[$ac];
+
+  let passwordr=details.password
+    ,passwordconfirmr=details.password
+    ,IDr=details.id
+    ,fnamer=details.fname
+    ,lnamer=details.lname
+    ,yearr=details.year
+    ,progr=details.program
+    ,facr=details.fac
+    ,GPAXr=details.GPAX
+    ,Bdayr=details.Bday
+    ,phoner=details.phone
+
+  function edit() {
+    var x = document.getElementById("detail");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+
+    var y = document.getElementById("inedit");
+      if (y.style.display === "block") {
+        y.style.display = "none";
+      } else {
+        y.style.display = "block";
+      }
+  }
+  
+function submit() {
+    var x = document.getElementById('inedit');
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+
+    if(passwordr == '' || passwordconfirmr == '' || IDr == '' || fnamer == '' || lnamer == ''){
+      alert('require input cannot be empty.')
+    }
+    else{
+      if(passwordr == passwordconfirmr){
+        details.password = passwordr
+        details.id = IDr
+        details.fname = fnamer
+        details.lname = lnamer
+        details.year = yearr
+        details.program = progr
+        details.fac = facr
+        details.GPAX = GPAXr
+        details.Bday = Bdayr
+        details.phone = phoner
+      }
+      else{
+        alert('reviews your password.')
+      }
+    }
+  
+    var x = document.getElementById("detail");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+  
+}
+
+  
   
 </script>
 
 <div class='main'>
+  
     <div class="img">
       <img src={user} />
     </div>
-    <div class="txt">
+  
+    <div class="txt" id='detail'>
       <label class='head'>Profile</label>
-      <p><b>Student ID: </b><span class='stdID'>{details.id}</span></p>
+      <p><b>Student ID: </b><span>{details.id}</span></p>
       <p><b>Name: </b><span>{details.fname} {details.lname}</span></p>
       <p><b>Student year: </b><span>{details.year}</span></p>
       <p><b>Program: </b><span>{details.program}</span></p>
@@ -23,11 +93,30 @@
       <p><b>Password: </b><span>{details.password}</span></p>
       <p><b>Birthday: </b><span>{details.Bday}</span></p>
       <p><b>Phone number: </b><span>{details.phone}</span></p>
-  
-      <button class="btn" on:click={() => $page = "studentEdit"}>Edit</button>
+      <button class="btn" on:click={edit}>Edit</button>
     </div>
-</div>
 
+    <div class="txt-edit" id='inedit'>
+      <label class='head'>Profile</label>
+      <span>
+        <p><b>Student ID: </b> <input bind:value={IDr} placeholder={details.id}></p>
+        <p><b>First Name: </b> <input bind:value={fnamer} placeholder={details.fname}></p>
+        <p><b>Last Name: </b><input bind:value={lnamer} placeholder={details.lname}></p>
+        <p><b>Student year: </b><input bind:value={yearr} placeholder={details.year}></p>
+        <p><b>Program: </b> <input bind:value={progr} placeholder={details.program}></p>
+        <p><b>Faculty: </b> <input bind:value={facr} placeholder={details.fac}></p>
+        <p><b>GPAX: </b> <input bind:value={GPAXr} placeholder={details.GPAX}></p>
+  
+        <p class="personal-title">Personal</p>
+        <p><b>Password: </b><input type='password' bind:value={passwordr} placeholder={details.password}></p>
+        <p><b>ConfirmPassword: </b><input type='password' bind:value={passwordconfirmr} placeholder={details.password}></p>
+        <p><b>Birthday: </b><input bind:value={Bdayr} placeholder={details.Bday}></p>
+        <p><b>Phone number: </b><input bind:value={phoner} placeholder={details.phone}></p>
+        <button class="btn" on:click={submit}>Submit</button>
+      </span>
+    </div>
+  
+</div>
 
 
 <div class='main2'>
@@ -43,6 +132,19 @@
 </div>
 
 <style>
+  input{
+    border-radius: 12px;
+    border: black 1px solid;
+    height: 0.75%;
+    padding: 0.30%;
+  }
+  b{
+    color: #2C4188;
+    font-size: 18px;
+  }
+  #inedit{
+    display:none;
+  }
   .main2{
     content: "";
     display: table;
@@ -60,8 +162,10 @@
     top:5%;
     display: flex;
     text-align: center;
+    display: block;
   }
-  .head{
+  .head , .personal-title{
+    font-family: "Lucida Console", "Courier New", 'monospace';
     font-size: 32px;
     font-style: bolder;
     color: #2C4188;
@@ -144,12 +248,9 @@
   .txt > p {
     color: #6676af;
   }
-
-  .personal-title {
-    font-weight: 700;
-    margin-top: 40px;
+  .txt-edit > p {
+    color: #6676af;
   }
-
   .btn {
     margin-top: 20px;
     padding: 5px 20px;

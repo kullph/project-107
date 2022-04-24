@@ -1,34 +1,85 @@
 <script>
   import { acc, ac , islogin , page} from "./Logindata.js"
-  import user from "./assets/user.png"
   const details = $acc[$ac];
-  
 </script>
 
-<!-- <div class='main'>
-    <div class="img">
-      <img src={user} />
-    </div>
-    <div class="txt">
-      <label class='head'>Profile</label>
-      <p><b>Student ID: </b><span class='stdID'>{details.id}</span></p>
-      <p><b>Name: </b><span>{details.fname} {details.lname}</span></p>
-      <p><b>Student year: </b><span>{details.year}</span></p>
-      <p><b>Program: </b><span>{details.program}</span></p>
-      <p><b>Faculty: </b><span>{details.fac}</span></p>
-      <p><b>GPAX: </b><span>{details.GPAX}</span></p>
-  
-      <p class="personal-title">Personal</p>
-      <p><b>Username: </b><span>{$ac}</span></p>
-      <p><b>Password: </b><span>{details.password}</span></p>
-      <p><b>Birthday: </b><span>{details.Bday}</span></p>
-      <p><b>Phone number: </b><span>{details.phone}</span></p>
-  
-      <button class="btn" on:click={() => $page = "studentEdit"}>Edit</button>
-    </div>
-</div> -->
 
+  <div class="Login">
+  <h1>Create an account</h1>
+  
+  <table>
 
+    <tr>
+      <td class='infohead'><label>Account Info</label></td>
+    </tr>
+    
+    <tr>
+      <td><label>Username</label></td>
+      <td><input bind:value={usernamer} placeholder="(require)"></td>
+    </tr>
+
+    <tr >
+      <td><label>Password</label></td>
+      <td><input class = "password" type = "password" bind:value={passwordr} placeholder="(require)"></td>
+      <td><label>Confirm Password</label></td>
+      <td><input class = "passwordconfirm" type = "password" bind:value={passwordconfirmr} placeholder="(require)"></td>
+    </tr>
+
+    <tr>
+      <td class='infohead'><label> </label></td>
+    </tr>
+    
+    <tr>
+      <td class='infohead'><label>General Infomation</label></td>
+    </tr>
+    
+    <tr>
+      <td><label>Student ID</label></td>
+      <td><input bind:value={IDr} placeholder="Student ID"></td>    
+    </tr>
+
+    <tr>
+      <td><label>Firstname</label></td>
+      <td><input bind:value={fnamer} placeholder="firstname"></td>
+      <td><label>Lastname</label></td>
+      <td><input bind:value={lnamer} placeholder="lastname"></td>
+    </tr>
+    
+    <tr>
+      <td><label>Year</label></td>
+      <td><input bind:value={yearr} placeholder="year"></td>
+      <td><label>Program</label></td>
+      <td><input bind:value={progr} placeholder="program"></td>
+    </tr>
+
+    <tr>
+      <td><label>Faculty</label></td>
+      <td><input bind:value={facr} placeholder="faculty"></td>
+      <td><label>GPAX</label></td>
+      <td><input bind:value={GPAXr} placeholder="GPAX"></td>
+    </tr>
+    
+    <tr>
+      <td><label>Birthday</label></td>
+      <td><input bind:value={Bdayr} placeholder="dd/mm/yyyy"></td>
+      <td><label>Phone number</label></td>
+      <td><input bind:value={phoner} placeholder="0x-xxxx-xxxx"></td>
+    </tr>
+
+    <tr>
+      <td class='infohead'><label> </label></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><button class="submit" on:click={reg}>Submit</button></td>
+      <td><button class="submit" on:click={()=>$page = 'login'}>Back</button></td>
+      <td></td>
+    </tr>
+      
+  </table>
+    
+</div>
 
 <div class='main2'>
   <div class='side'>
@@ -123,14 +174,13 @@
     background-color: #0A1230;
   }
 
-/*  Main  */
-/*   .container {
+.container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f0f3f6;
-  } */
+  }
   
   .img > img {
     width: 200px;
@@ -138,7 +188,7 @@
   }
 
   .txt {
-/*     text-align: center; */
+    text-align: center;
   }
 
   .txt > p {

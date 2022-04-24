@@ -1,61 +1,65 @@
 <script>
-  import { acc , ac , islogin , page } from "./Logindata.js"
+  import { subjd , acc , ac , islogin , page } from "./Logindata.js"
   import { subject } from "./Subjectdata.js"
   
   const details = $acc[$ac];
+  var i;
+  
+  let IDs =''
+    ,names = ''
+    ,attens =''
+    ,quotas =''
+    ,sections = ''
 
-function myFunction() {
-  var dots = document.getElementById("dots");
-  var moreText = document.getElementById("more");
-  var btnText = document.getElementById("myBtn");
-
-  if (dots.style.display === "none") {
-    dots.style.display = "inline";
-    btnText.innerHTML = "Read more"; 
-    moreText.style.display = "none";
-  } else {
-    dots.style.display = "none";
-    btnText.innerHTML = "Read less"; 
-    moreText.style.display = "inline";
+  function detail(index) {
+    $page = 'detail'
+    $subjd = $subject[index]
   }
-}
   
-  let ID =''
-  let name = ''
-  let atten =''
-  let quota =''
-  let section = ''
-  let time = ''
+  function showinput() {
+    var a = document.getElementById('Input');
+  
+    if (a.style.display === "block") {
+      a.style.display = "none";
+    } 
+    else {
+      a.style.display = "block";
+    }
 
-  let searchdata = ''
-  
-  function submit() {
-    alert('submit เเล้วจ้า');
+    IDs =''
+    names = ''
+    attens =''
+    quotas =''
+    sections = ''
     
   }
   
-  function add() {
-    var x = document.getElementById('Input');
-    if (x.style.display === "none") {
-    x.style.display = "none";} 
-    else {
-    x.style.display = "block";
-  
-  }
-  }
-  
-  function detail(index) {
-    var x = document.getElementById('Hide');
-    if (x.style.display === "block") {
-    x.style.display = "none";} 
-    else {
-    x.style.display = "block"
+  function submit() {
+    let db = 0
+    var day = document.getElementById('selday').value;
+    var sth = document.getElementById('sth').value;
+    var stm = document.getElementById('stm').value;
+    var ovh = document.getElementById('ovh').value;
+    var ovm = document.getElementById('ovm').value;
 
-  }
-  }
-
-  function edit() {
-    alert('Edit!!!!!!!!!!');
+    
+    if(IDs == '' || names == '' || quotas == '' || sections == ''){
+      alert('fill the blank.')
+    }
+    else{
+      $subject.push({ check: 0, ID: IDs, name: names
+                     , atten: 0, quota: quotas, section: sections
+                     , day: day, st: { h: sth, m: stm }
+                     , en: { h: ovh, m: ovm }
+                     , attendees: [] })
+      
+      $subject = $subject
+      IDs =''
+      names = ''
+      attens =''
+      quotas =''
+      sections = ''
+    }
   }
   
   function search() {
@@ -77,13 +81,7 @@ function myFunction() {
         }
       }
     }
-  }
-
-  const selectedclear = () => {
-    //
-  }
-
-  
+  } 
 </script>
 
 <div class='main'>
@@ -106,8 +104,8 @@ function myFunction() {
     
     <div class='tabledata1'>
         <table id='myTable'>
-        {#each $subject as {ID, name, atten, quota, section, day, st, en} , index}
-          <tr>
+        {#each $subject as {ID, name, atten, quota, section, day, st, en , attendees} , index}
+          <tr class='tr-hover' on:click={()=>detail(index)}>
             <span class='tr-container'>
               <td class = 't-id'>{ID}</td> 
               <td class = 't-name' >{name}</td>
@@ -115,23 +113,10 @@ function myFunction() {
               <td class = 't-quota' >/ {quota}</td>
               <td class = 't-sec'>{section}</td>
               <td class = 't-time'>{day}{st.h}:{st.m}-{en.h}:{en.m}</td>
-              <td class = 't-btn'><button class='btn' on:click={detail}>Detail</button></td>
-              <td class = 't-btn'><button class='btn'on:click={edit}>Edit</button></td>
+              <td class = 't-btn'><button class='btn' on:click={()=>detail(index)}>Detail</button></td>
             </span>
           </tr>
         {/each} 
-          <div class='Hide' id='Hide'>
-            <span id='more'>
-            {#each $subject as attendees,index}
-            <tr>
-            <span class='block-name'>
-              <td class = 't-id'>{ID}</td> 
-              <td class = 't-name'>{attendees}</td>
-            </span>
-          </tr>
-            {/each}  
-            </span>
-          </div>
           
         </table>
       
@@ -140,41 +125,100 @@ function myFunction() {
     <div class='searchbar'>
       <input type = "text" class="srchinput" id = 'myInput' on:keyup={search} placeholder="(ID)">
       <label class='srch'>(Search ID Course)</label>
-      <button class = 'search-btn' on:click={confirm}>confirm</button>
+      <button class = 'search-btn' id='add-btn' on:click={showinput}>Add Subject</button>
     </div>
-    
-    <div class='add-section'>
-        <button class='add-btn' on:click={add}>Add</button>
       
-      <div id='Input'>
-        <tr>
+    <div id='Input' class='add-section'>
+      <table class = 'tab'>
             <span class='tr-add'>
-              <td class = 't-input'>
-                <input bind:value={ID} placeholder="(ID)">
-              </td> 
-              <td class = 't-input'>
-                <input bind:value={name} placeholder="(name)">
+              <tr>
+                <td class = 't-input'>
+                  <input bind:value={IDs} placeholder="(ID)">
+                </td> 
+                
+                <td class = 't-input'>
+                  <input bind:value={names} placeholder="(name)">
+                </td>
+                
+                <td class = 't-input'>
+                  <input bind:value={quotas} placeholder="(quota)">
+                </td>
+                
+                <td class = 't-input'>
+                  <input bind:value={sections} placeholder="(section)">
+                </td>
+                
+              </tr> 
               
-              </td>
-              <td class = 't-input'>
-                <input bind:value={atten} placeholder="(atten)">
-              </td>
-              <td class = 't-input'>
-                <input bind:value={quota} placeholder="(quota)"></td>
-              <td class = 't-input'>
-                <input bind:value={section} placeholder="(section)">
-              </td>
-              <td class = 't-input'>
-                <input bind:value={time} placeholder="(Time)">
-              </td>
-              <td class = 't-btn'>
-                <button class='btn'on:click={submit}>Submit</button>
-              </td>
+              <tr>
+
+                <td class = 't-input'>
+                  Day:
+                  <select name = 'selday' id='selday'>
+                    <option value = 'MO'>Monday</option>
+                    <option value = 'TU'>Tuesday</option>
+                    <option value = 'WE'>Wednesday</option>
+                    <option value = 'TH'>Thursday</option>
+                    <option value = 'FR'>Friday</option>
+                    <option value = 'SA'>Saturday</option>
+                    <option value = 'SU'>Sunday</option>
+                  </select>
+
+                </td>
+                <td class = 't-input'>
+                  Start:
+                  <select name = 'sth' id='sth'>
+                    <option value = '8'>8</option>
+                    <option value = '9'>9</option>
+                    <option value = '10'>10</option>
+                    <option value = '11'>11</option>
+                    <option value = '12'>12</option>
+                    <option value = '13'>13</option>
+                    <option value = '14'>14</option>
+                    <option value = '15'>15</option>
+                    <option value = '16'>16</option>
+                    <option value = '17'>17</option>
+                  </select>
+                  ~
+                  <select name = 'stm' id='stm'>
+                    <option value = '00'>00</option>
+                    <option value = '30'>30</option>
+                  </select>
+
+                </td>
+                <td class = 't-input'>
+                  Over:
+                  <select name = 'ovh' id='ovh'>
+                    <option value = '9'>9</option>
+                    <option value = '10'>10</option>
+                    <option value = '11'>11</option>
+                    <option value = '12'>12</option>
+                    <option value = '13'>13</option>
+                    <option value = '14'>14</option>
+                    <option value = '15'>15</option>
+                    <option value = '16'>16</option>
+                    <option value = '17'>17</option>
+                    <option value = '18'>18</option>
+                  </select>
+                  ~
+                  <select name = 'ovm' id='ovm'>
+                    <option value = '00'>00</option>
+                    <option value = '30'>30</option>
+                  </select>
+                </td>
+                
+              </tr> 
+
+              <tr>
+                <td class = 't-btn'>
+                  <button class='btn' on:click={submit} id='smit'>Submit</button>
+                </td>
+              </tr>
+              
             </span>
-          </tr>
+
+        </table>
       </div>
-      
-    </div>
   </div>
 </div>
 
@@ -192,6 +236,48 @@ function myFunction() {
 
   
 <style>
+  #smit:hover{
+    background-color: #0A1230;
+  }
+  select{
+    font-family: "Lucida Console", "Courier New", monospace;
+    border-radius: 12px;
+    font-size: 18px;
+    padding: 1.5%;
+  }
+  .t-btn .btn{
+    font-size: 16px;
+    padding: 5%;
+  }
+  .tab tr td{
+    width: 20.5%;
+    height: 5%;
+    padding: 1%;
+  }
+  .t-input input{
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 18px;
+    width: 85%;
+    height: 120%;
+    border: none;
+    border-radius: 12px;
+    padding: 3%;
+    margin-top: 0.75%;
+    margin-left: 3%;
+  }
+  .tab,.tab tr, .tab tr td{
+    
+  }
+  .tab{
+    width: 100%;
+    padding: 1.25%;
+  }
+  .add-btn:hover{
+    background-color: #0A1230;
+  }
+  #Input{
+    display: none;
+  }
   img{
     width:32px;
   }
@@ -210,14 +296,14 @@ function myFunction() {
     border: none;
     padding: 8.85px;
   }
-  .search-btn, .add-btn {
+  .search-btn, .add-btn{
     position: relative;
     font-family: "Lucida Console", "Courier New", monospace;
     padding: 0.75%;
     background-color: #3c4d8b;
     color: white;
     text-align: center;
-    width: 6.5%;
+    width: 10%;
     margin-top: 0.35%;
     margin-left: 0.5%;
     border-radius: 12px;
@@ -305,6 +391,7 @@ function myFunction() {
     width: 100%;
     height: 6.5%;
   }
+  
   .tabledata1{
     background: #B5BEDC;
     bottom: 40%;
@@ -314,6 +401,7 @@ function myFunction() {
     height: 55%;
     overflow: auto;
   }
+  
   .tablehead{
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -335,11 +423,13 @@ function myFunction() {
     border: none;
     border-color: rgba(60, 77, 139,0);
   }
+  
   .main2{
     content: "";
     display: table;
     clear: both;
   }
+  
   .main{
     position: absolute;
     background: white;
@@ -491,7 +581,7 @@ function myFunction() {
   }
 
   .add-section {
-    bottom: 10%;
+    top:66.5%;
     left: 0;
     position: absolute;
     width: 100%;
@@ -506,7 +596,7 @@ function myFunction() {
     border-radius: 12px;
     padding: 0.75%;
     margin-top: 0.75%;
-    margin-left: 10%;
+    margin-left: 0%;
   }
   .srch{
     font-family: "Lucida Console", "Courier New", monospace;

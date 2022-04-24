@@ -29,6 +29,7 @@
 <div class='main'>
   <label class='head'>Registration Result</label>
   <div class = 'table'>
+      
     <div class='tablehead'>
         <table>  
         <tr>
@@ -65,8 +66,6 @@
   </div>
      
 </div>
-
-
 
 <div class='main2'>
   <div class='side'>
@@ -160,7 +159,7 @@
     height: 5.25%;
   }
   .table{
-    background: #F0F3F6;
+    background: white;
     position: absolute;
     width: 92.5%;
     height: 80%;
@@ -259,4 +258,7 @@
     width: 5px;
     border-radius: 20px;
   }
-</style>
+  .tablehead,.tabledata1{
+    opacity:1;
+  }
+  </style>

@@ -7,8 +7,10 @@ let data = {'6410742297': {password:'000' ,type:'stu', id:'6410742297', fname:'K
             'student': {password:'0',type:'stu', id:'6510742297', fname:'Pullaphat', lname:'Pajhan', year:'1', program:'Data Engineering' , fac:'Engineering', GPAX:'4.00', Bday:'08/09/2004', phone:'09-3000-0002',selected:[], registered:[]}
            }
 
+let subjx = []
 
 export const acc = writable(data);
 export const islogin = writable(false);
 export const page = writable('login');
 export const ac = writable('');
+export const subjd = writable(subjx);
