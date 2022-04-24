@@ -141,18 +141,18 @@
   }
   .tabledata1{
     background: #B5BEDC;
-    bottom: 0%;
+    top:5%;
     left: 0;
     position: absolute;
     width: 100%;
-    height: 45%;
+    height: 90%;
     overflow: auto;
   }
   .tablehead{
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     background: #6676AF;
-    bottom: 45%;
+    top:0;
     left: 0;
     position: absolute;
     width: 100%;

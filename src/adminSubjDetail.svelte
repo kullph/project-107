@@ -99,27 +99,25 @@
         <table>  
           <tr>
             <span>
-              <td><b>ID</b> {$subjd.ID}</td> 
+              <td><b>ID:</b> {$subjd.ID}</td> 
               <td><label><b>Start-time</b></label></td>
               <tr>
-                <td><b>Subjects</b> {$subjd.name}</td>
-                <td><b>Hour</b> {$subjd.st.h}</td> 
-                <td><b>Minute</b> {$subjd.st.m}</td>
+                <td><b>Subjects:</b> {$subjd.name}</td>
+                <td>&nbsp;{$subjd.st.h}:{$subjd.st.m}</td> 
               </tr>
               
               <tr>
-                <td><b>Quota</b> {$subjd.quota}</td>
+                <td><b>Quota:</b> {$subjd.quota}</td>
               </tr>
 
               <tr>
-                <td><b>Sections</b> {$subjd.section}</td>
+                <td><b>Sections:</b> {$subjd.section}</td>
                 <td><label><b>End-time</b></label></td>
               </tr>
 
               <tr>
-                <td><b>Day</b> {$subjd.day}</td>
-                <td><b>Hour</b> {$subjd.en.h}</td> 
-                <td><b>Minute</b> {$subjd.en.m}</td>
+                <td><b>Day:</b> {$subjd.day}</td>
+                <td>&nbsp;{$subjd.en.h}:{$subjd.en.m}</td> 
               </tr>
 
               
@@ -237,23 +235,23 @@
               <td><b>ID</b><input bind:value={subID} placeholder={$subjd.ID}></td> 
               <td><label><b>Start-time</b></label></td>
               <tr>
-                <td><b>Subjects</b> <input bind:value={subName} placeholder={$subjd.name}></td>
-                <td><b>Hour</b><input bind:value={subSTh} placeholder={$subjd.st.h}></td> 
-                <td><b>Minute</b><input bind:value={subSTm} placeholder={$subjd.st.m}></td>
+                <td><b>Subjects :</b> <input bind:value={subName} placeholder={$subjd.name}></td>
+                <td><b>Hour :</b><input bind:value={subSTh} placeholder={$subjd.st.h}></td> 
+                <td><b>Minute :</b><input bind:value={subSTm} placeholder={$subjd.st.m}></td>
               </tr>
               
               <tr>
-                <td><b>Quota</b><input bind:value={subQuota} placeholder={$subjd.quota}></td>
+                <td><b>Quota :</b><input bind:value={subQuota} placeholder={$subjd.quota}></td>
               </tr>
 
               <tr>
-                <td><b>Sections</b><input bind:value={subSection} placeholder={$subjd.section}></td>
+                <td><b>Sections :</b><input bind:value={subSection} placeholder={$subjd.section}></td>
                 <td><label><b>End-time</b></label></td>
               </tr>
 
               <tr>
                 <td class = 't-input'>
-                  Day:
+                  Day :
                   <select name = 'selday' id='selday'>
                     <option value = 'MO'>Monday</option>
                     <option value = 'TU'>Tuesday</option>
@@ -281,11 +279,11 @@
     
     <table>
       <tr>
-        <td><label>Student</label></td>
+        <td><label><b>Student</b></label></td>
       </tr>
       <tr>
-        <td><label><b>ID</b></label></td>
-        <td><label><b>Name</b></label></td>
+        <td><label><b>ID :</b></label></td>
+        <td><label><b>Name :</b></label></td>
       </tr>
     {#each $subjd.attendees as name}
       <tr>
@@ -456,5 +454,11 @@
     transition-duration: 0.4s;
     border: none;
   }
-  
+  b{
+    color: #2C4188;
+    
+  }
+  td{
+    color: #2C4188;
+  }
 </style>

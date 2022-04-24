@@ -91,12 +91,12 @@
         <table>  
         <tr>
           <span>
-            <th style="width:5%;">ID ▼</th> 
-            <th style="width:15%;">Subjects ▼</th> 
-            <th style="width:12%;">Quota ▼</th> 
+            <th style="width:7%;">ID ▼</th> 
+            <th style="width:18%;">Subjects ▼</th> 
+            <th style="width:15%;">Quota ▼</th> 
             <th style="width:7%;">Sections ▼</th> 
-            <th style="width:12%;">Time</th>
-            <th style="width:12%;"></th>
+            <th style="width:18%;">Time</th>
+            <th style="width:7%;"></th>
           </span>
         </tr>
         </table>
@@ -326,13 +326,13 @@
     margin-left: 3%;
   }
   table , td , tr , th{
-
+    
   }
   .tr-container {
     font-size: 18px;
   }
   .t-id{
-    width:6%;
+    width:5%;
     text-align: center;
   }
   .t-name{
@@ -601,5 +601,19 @@
   .srch{
     font-family: "Lucida Console", "Courier New", monospace;
     color: white;
+  }
+    ::-webkit-scrollbar {
+    width: 10px;
+    background: #49578a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.70);
+    width: 5px;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.90);
+    width: 5px;
+    border-radius: 20px;
   }
 </style>
